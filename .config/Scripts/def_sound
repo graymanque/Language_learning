@@ -1,5 +1,5 @@
 #!/bin/bash
 input="$1"
-cd /home/linuxs/Documents/Programs/Linux/Dictionaries/japanese_sound
+cd /path_to/sound_files_directory/
 find . -type f \( -name "$input.yomi*" -o -name "$input-*_male*" \) -print -quit | xargs mpv --really-quiet
 
