@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+if ps -A | grep -q ffmpeg*; then
+    notify-send "recording finished" && killall ffmpeg
+    sleep 0.2
+    xdotool key --window "$(xdotool search --class mpv)" p
+else
+    filename=`date '+%Y-%m-%d_%H-%M-%S'`
+    scrot -u -t 30% /tmp/"$filename".jpeg && xclip -selection primary -t image/jpeg -i /tmp/"$filename"*thumb*
+    sleep 0.4
+    xdotool key --window "$(xdotool search --class mpv)" p
+    sleep 0.2
+    xdotool key --window "$(xdotool search --class mpv)" Ctrl+s
+    notify-send "started recording"
+    ffmpeg \
+    -f pulse -i default \
+    /tmp/$filename.mp3 
+    &> /tmp/$filename.log \
+    dragon -a -x /tmp/$filename.mp3
+fi
