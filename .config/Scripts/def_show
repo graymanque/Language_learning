@@ -8,7 +8,7 @@ else
 fi
 
 if [ ${#dic} -eq 1 ]; then
-    notify-send -t 8000 "$(grep $dic ~/Documents/Programs/Linux/Anki/Kodansha_Kanji_dictionary.txt)"
+    notify-send -t 8000 "$(grep $dic /path_to/kanji_list.txt)"
 
 else
     check="$(echo "$(sdcv -e "$dic")" | awk '{ print $1" "$2 }')"
